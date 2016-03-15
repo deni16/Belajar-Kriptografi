@@ -42,13 +42,9 @@ public class SubtitutionCipher {
                 if (posisi > 26) {
                     posisi = posisi - 26;
                 }
-                if (String.valueOf(abjad[posisi]).equals(" ")) {
-                    System.out.println("masuk if");
-                    encryptPassword += " ";
-                } else {
-                    System.out.println("else");
-                    encryptPassword += abjad[posisi];
-                }
+
+                encryptPassword += abjad[posisi];
+
             } else {
                 encryptPassword += " ";
             }
