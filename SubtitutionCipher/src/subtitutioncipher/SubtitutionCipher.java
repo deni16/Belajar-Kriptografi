@@ -18,10 +18,10 @@ public class SubtitutionCipher {
      */
     public static void main(String[] args) {
         int key = 7576;
-        String password = "DENI";
+        String password = "MELISSA ARISANTY";
         String encrypt = getEncryptPassword(password, key);
         String decrypt = getDecryptPassword(encrypt, key);
-        
+
         System.out.println("Password : " + password);
         System.out.println("Encrypt : " + encrypt);
         System.out.println("Decrypt : " + decrypt);
@@ -32,17 +32,26 @@ public class SubtitutionCipher {
         String encryptPassword = "";
         int posisi = 0;
         for (char charPasswd : passwordArray) {
-            posisi = Integer.valueOf(new String(abjad).indexOf(charPasswd));
-            /**
-             * cara cek nilai 1'1 tapi berat
-             * posisi = posisi + key;
-             * posisi = isGreaterThan26(posisi);
-            */
-            posisi = posisi + (key % 26);
-            if (posisi > 26) {
-                posisi = posisi - 26;
+            if (charPasswd != ' ') {
+                posisi = Integer.valueOf(new String(abjad).indexOf(charPasswd));
+                /**
+                 * cara cek nilai 1'1 tapi berat posisi = posisi + key; posisi =
+                 * isGreaterThan26(posisi);
+                 */
+                posisi = posisi + (key % 26);
+                if (posisi > 26) {
+                    posisi = posisi - 26;
+                }
+                if (String.valueOf(abjad[posisi]).equals(" ")) {
+                    System.out.println("masuk if");
+                    encryptPassword += " ";
+                } else {
+                    System.out.println("else");
+                    encryptPassword += abjad[posisi];
+                }
+            } else {
+                encryptPassword += " ";
             }
-            encryptPassword += abjad[posisi];
         }
         return encryptPassword;
     }
@@ -52,30 +61,29 @@ public class SubtitutionCipher {
         String decryptPassword = "";
         int posisi = 0;
         for (char charPasswd : passwordArray) {
-            posisi = Integer.valueOf(new String(abjad).indexOf(charPasswd));
-            /** cara cek nilai 1'1 tapi berat
-             * posisi = posisi - key;
-             * posisi = isSmallerThan26(posisi);
-             */
-            posisi = posisi - (key % 26);
-            if(posisi < 0){
-                posisi = 26 + posisi;
+
+            if (charPasswd != ' ') {
+                posisi = Integer.valueOf(new String(abjad).indexOf(charPasswd));
+                /**
+                 * cara cek nilai 1'1 tapi berat posisi = posisi - key; posisi =
+                 * isSmallerThan26(posisi);
+                 */
+                posisi = posisi - (key % 26);
+                if (posisi < 0) {
+                    posisi = 26 + posisi;
+                }
+                decryptPassword += abjad[posisi];
+            } else {
+                decryptPassword += " ";
             }
-            decryptPassword += abjad[posisi];
         }
+
         return decryptPassword;
     }
-    
+
     /**
-     * N = 13 
-     * Abjad = 26 
-     * Key = 50 
-     * 13 + 50 = 63
-     * 63 - 26 = 37 
-     * jika 37 > 26 : 
-     * 37 - 26 
-     * Atau 
-     * N + (Key % 26)
+     * N = 13 Abjad = 26 Key = 50 13 + 50 = 63 63 - 26 = 37 jika 37 > 26 : 37 -
+     * 26 Atau N + (Key % 26)
      */
     public static int isGreaterThan26(int posisi) {
         Boolean greaterThan = (posisi > 26) ? Boolean.TRUE : Boolean.FALSE;
@@ -102,5 +110,5 @@ public class SubtitutionCipher {
         }
         return posisi;
     }
-    
+
 }
